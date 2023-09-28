@@ -1,0 +1,34 @@
+from datetime import date, time, datetime, timedelta
+def choose_plural(x, words):
+    if (x % 100) // 10 == 1:
+        return f'{x} {words[2]}'
+    elif x % 10 == 1:
+        return f'{x} {words[0]}'
+    elif 2 <= x % 10 <= 4:
+        return f'{x} {words[1]}'
+    else:
+        return f'{x} {words[2]}'
+
+pattern = '%d.%m.%Y %H:%M'
+now = datetime.strptime(input(), pattern)
+start = datetime(2022, 11, 8, 12, 00)
+days = ("день", "дня", "дней")
+hours = ("час", "часа", "часов")
+minutes = ("минута", "минуты", "минут")
+
+if (start - now).days > 0:
+    print(f'До выхода курса осталось: {choose_plural((start - now).days, days)}', end=' ')
+    if (start - now).seconds > 0:
+        print(f'и {choose_plural((start - now).seconds // 3600, hours)}')
+
+elif (start - now).days == 0:
+    if (start - now).seconds // 3600 > 0:
+        print(f'До выхода курса осталось: {choose_plural((start - now).seconds // 3600, hours)}', end=' ')
+        if (start - now).seconds % 3600 > 0:
+            print(f'и {choose_plural(((start - now).seconds % 3600) // 60, minutes)}')
+    elif ((start - now).seconds % 3600) // 60 > 0:
+        print(f'До выхода курса осталось: {choose_plural(((start - now).seconds % 3600) // 60, minutes)}')
+    else:
+        print('Курс уже вышел!')
+else:
+    print('Курс уже вышел!')
