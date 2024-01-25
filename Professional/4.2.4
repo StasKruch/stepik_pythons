@@ -1,0 +1,14 @@
+#read csv file, then sort dictionary
+
+import csv
+
+with open('salary_data.csv', encoding='utf-8') as file:
+    rows = csv.DictReader(file, delimiter=';')
+    d={}
+    for row in rows:
+        key=row['company_name']
+        value = int(row['salary'])
+        d[key] = d.get(key, []) + [value]
+
+    for i in sorted(d.items(), key=lambda x: sum(x[1])/len(x[1])):
+        print(i[0])
