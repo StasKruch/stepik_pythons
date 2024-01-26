@@ -1,0 +1,9 @@
+#Вам доступен файл deniro.csv, каждый столбец которого содержит либо только числа, либо строковые значения:
+
+import csv
+d = {}
+with open('deniro.csv', encoding='utf-8') as file:
+    rows = list(csv.reader(file, delimiter=','))
+    n=int(input())-1
+    for row in sorted(rows, key = lambda x: int(x[n]) if x[n].isdigit() else x[n]):
+        print(*row, sep=',')
