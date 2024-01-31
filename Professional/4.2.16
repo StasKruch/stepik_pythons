@@ -1,0 +1,16 @@
+import csv
+dick = {}
+with open('data.csv', encoding='utf-8') as file:
+    rows = csv.reader(file)
+    next(rows)
+    for row in rows:
+        key = row[-1].split('@')[1]
+        dick[key]=int(dick.setdefault(key, 0)) + 1
+
+
+with open('domain_usage.csv', 'w', encoding='utf-8', newline='') as file:
+    columns = ['domain', 'count']
+    writer = csv.writer(file)
+    writer.writerow(columns)    
+    for i in sorted(dick.items(), key=lambda x: (x[1], x[0])):
+        writer.writerow(i)
