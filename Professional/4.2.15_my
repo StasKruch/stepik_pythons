@@ -1,0 +1,9 @@
+import csv
+def csv_columns(filename):
+    with open(filename, encoding='utf-8') as file:
+        dick={}
+        rows = csv.DictReader(file, delimiter=',')
+        for row in rows:
+            for i in row.keys():
+                dick[i] = dick.get(i, []) + [row[i]]
+        return dick
