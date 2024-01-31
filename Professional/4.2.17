@@ -1,0 +1,12 @@
+import csv
+
+with open('wifi.csv', 'r', encoding='utf-8') as file:
+    reader = csv.DictReader(file, delimiter=';')
+    dick = {}
+    for row in reader:
+        key = row['district']
+        value = row['number_of_access_points']
+        dick[key] = dick.get(key, 0) + int(value)
+        
+    for i in (sorted(dick.items(), key = lambda x: (-x[1], x[0]))):
+        print(*i, sep=': ')
