@@ -1,0 +1,17 @@
+import csv
+
+with open('name_log.csv', 'r', encoding='utf-8') as file:
+    rows = csv.reader(file, delimiter=',')
+    columns = next(rows)
+    dick = {}
+
+    for row in sorted(rows, key=lambda x: x[2]):
+        key = row[1]
+        value = row
+        dick[key] = value
+
+with open('new_name_log.csv', 'w', encoding='utf-8', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(columns)
+    for i in sorted(dick.values(), key=lambda x: x[1]):
+        writer.writerow(i)
